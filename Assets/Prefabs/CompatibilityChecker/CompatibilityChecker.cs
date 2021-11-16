@@ -6,24 +6,25 @@ using UnityEngine.XR.ARFoundation;
 
 public class CompatibilityChecker : MonoBehaviour
 {
-    public enum Device
+    public enum DeviceSupport
     {
         AR,
         VR,
-        DESKTOP
+        DESKTOP,
+        UNKNOWN,
     }
 
     private ARSession _arSession;
+    private static DeviceSupport _supportedDevice = DeviceSupport.UNKNOWN;
+    private static Action<DeviceSupport> _listeners;
 
     void Start()
     {
-        Screen.orientation = ScreenOrientation.LandscapeLeft; // TODO, move
         _arSession = FindObjectOfType<ARSession>();
-
-        // If we destory the ARSession object between scenes, the camera needs to be reloaded
-        // and the scene transition would feel buggy. We thefore dont destory this object on
-        // load.
-        DontDestroyOnLoad(this.gameObject);
+        if (_arSession)
+        {
+            throw new ArgumentException("An ARSession needs to exist for the CompatibilityChecker");
+        }
     }
 
     public IEnumerator CheckForARSupport(Action<ARSessionState> OnCheckCompleted) {
@@ -34,6 +35,12 @@ public class CompatibilityChecker : MonoBehaviour
             yield return ARSession.CheckAvailability();
         }
         OnCheckCompleted(ARSession.state);
+    }
+
+    public static void AddListener(Action<DeviceSupport> OnResult)
+    {
+        if (_supportedDevice == CompatibilityChecker.DeviceSupport.UNKNOWN)
+            _listeners += OnResult;
     }
 }
 
