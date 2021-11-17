@@ -461,7 +461,7 @@ MonoBehaviour:
   _arContainer: {fileID: 8778032812811765415}
   _vrContainer: {fileID: 554659373511638886}
   _desktopContainer: {fileID: 3729540537599245260}
-  _arSessionOrigin: {fileID: 0}
+  _arSessionOrigin: {fileID: 8443179635172985928}
 --- !u!1 &8778032812811765415
 GameObject:
   m_ObjectHideFlags: 0

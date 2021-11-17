@@ -9,9 +9,6 @@ public class CrossPlatformCamera : MonoBehaviour
     [SerializeField] private GameObject _vrContainer;
     [SerializeField] private GameObject _desktopContainer;
 
-    [Header("Augmented Reality")]
-    [SerializeField] private ARSessionOrigin _arSessionOrigin;
-
     void Start()
     {
         CompatibilityChecker.AddListener(EnableCorrectCamera);
@@ -48,10 +45,4 @@ public class CrossPlatformCamera : MonoBehaviour
         this._arContainer.SetActive(false); 
         this._desktopContainer.SetActive(true);
     }
-
-    private void MakeOriginAppearAt(Pose levelPlacementPose)
-    {
-        _arSessionOrigin.MakeContentAppearAt(new GameObject().transform, levelPlacementPose.position, levelPlacementPose.rotation);
-    }
-
 }
