@@ -103,6 +103,11 @@ Library: lib_burst_generated64
 --compilation-defines=ENABLE_IL2CPP
 --compilation-defines=NET_STANDARD_2_0
 --compilation-defines=NET_STANDARD
+--compilation-defines=DEVELOPMENT_BUILD
+--compilation-defines=ENABLE_PROFILER
+--compilation-defines=DEBUG
+--compilation-defines=TRACE
+--compilation-defines=UNITY_ASSERTIONS
 --compilation-defines=ENABLE_CUSTOM_RENDER_TEXTURE
 --compilation-defines=ENABLE_DIRECTOR
 --compilation-defines=ENABLE_LOCALIZATION
@@ -134,6 +139,7 @@ Library: lib_burst_generated64
 --compilation-defines=TIMELINE_FRAMEACCURATE
 --compilation-defines=UNITY_ANALYTICS
 --generate-link-xml=Temp/burst.link.xml
+--debug=Full
 --generate-static-linkage-methods
 --output=/Users/adam/Repositories/Lightenize/Temp/StagingArea/StaticLibraries/lib_burst_generated64
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/UnityEngine.UI.dll
@@ -152,9 +158,9 @@ Library: lib_burst_generated64
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Unity.Timeline.dll
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Unity.XR.Management.dll
+--root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Assembly-CSharp.dll
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/UnityEngine.SpatialTracking.dll
---root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Assembly-CSharp.dll
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Unity.Subsystem.Registration.dll
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll

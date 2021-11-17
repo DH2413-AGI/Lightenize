@@ -42,7 +42,7 @@ public class LevelPlacementController : MonoBehaviour
         _levelPlaceholder.SetActive(false);
 
         _compatibilityChecker = FindObjectOfType<CompatibilityChecker>();
-        StartCoroutine(_compatibilityChecker.CheckForARSupport(this.PlaceLevelDesktop));
+        CompatibilityChecker.AddListener(this.PlaceLevelDesktop);
     }
 
     void Update()
@@ -76,9 +76,9 @@ public class LevelPlacementController : MonoBehaviour
         
     }
 
-    private void PlaceLevelDesktop(ARSessionState arSessionState)
+    private void PlaceLevelDesktop(CompatibilityChecker.DeviceSupport deviceSupport)
     {
-        if (arSessionState != ARSessionState.Unsupported) return;
+        if (deviceSupport != CompatibilityChecker.DeviceSupport.DESKTOP) return;
         Debug.Log("Place level desktop");
         _hasPlacedLevel = true;
         this._levelPositionManager.UpdateLevelSpawnPosition(new Pose());
