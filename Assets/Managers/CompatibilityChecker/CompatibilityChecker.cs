@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
@@ -21,26 +20,46 @@ public class CompatibilityChecker : MonoBehaviour
     void Start()
     {
         _arSession = FindObjectOfType<ARSession>();
-        if (_arSession)
+        if (_arSession == null)
         {
             throw new ArgumentException("An ARSession needs to exist for the CompatibilityChecker");
         }
+
+        StartCoroutine(CheckSupportForCurrentDevice());
     }
 
-    public IEnumerator CheckForARSupport(Action<ARSessionState> OnCheckCompleted) {
+    public IEnumerator CheckSupportForCurrentDevice() {
         
+        // AR
         if ((ARSession.state == ARSessionState.None) ||
             (ARSession.state == ARSessionState.CheckingAvailability))
         {
             yield return ARSession.CheckAvailability();
         }
-        OnCheckCompleted(ARSession.state);
+        
+        // VR
+        // TODO
+        
+        if (ARSession.state == ARSessionState.Unsupported)
+        {
+            _supportedDevice = DeviceSupport.DESKTOP;
+        }
+        else
+        {
+            _supportedDevice = DeviceSupport.AR;
+        }
+
+        _listeners.Invoke(_supportedDevice);
     }
 
     public static void AddListener(Action<DeviceSupport> OnResult)
     {
-        if (_supportedDevice == CompatibilityChecker.DeviceSupport.UNKNOWN)
-            _listeners += OnResult;
+        if (_supportedDevice != CompatibilityChecker.DeviceSupport.UNKNOWN)
+        {
+            OnResult.Invoke(_supportedDevice);
+            return;
+        }
+        _listeners += OnResult;
     }
 }
 

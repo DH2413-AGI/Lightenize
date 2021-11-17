@@ -346,6 +346,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9147752777304813342}
   - component: {fileID: 8443179635172985928}
+  - component: {fileID: 6439132870008006910}
+  - component: {fileID: 87480407990898673}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -361,8 +363,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4246324390340228444}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.2913685, y: 8.350591, z: -11.210131}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7240241329547489259}
@@ -382,6 +384,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 1196194748485039263}
+--- !u!114 &6439132870008006910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246324390340228444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RaycastPrefab: {fileID: 0}
+--- !u!114 &87480407990898673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246324390340228444}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlanePrefab: {fileID: 0}
+  m_DetectionMode: -1
 --- !u!1 &8157666076489325227
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,8 +420,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8157666076489325226}
+  - component: {fileID: 39860471092561190}
   m_Layer: 0
-  m_Name: CrossPlatformCamera
+  m_Name: Cross Platform Camera
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -416,6 +446,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &39860471092561190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157666076489325227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa51ee2213824b069cb14ffa7a64019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arContainer: {fileID: 8778032812811765415}
+  _vrContainer: {fileID: 554659373511638886}
+  _desktopContainer: {fileID: 3729540537599245260}
+  _arSessionOrigin: {fileID: 8443179635172985928}
 --- !u!1 &8778032812811765415
 GameObject:
   m_ObjectHideFlags: 0
