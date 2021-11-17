@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 public class CrossPlatformCamera : MonoBehaviour
 {
     [SerializeField] private GameObject _arContainer;
     [SerializeField] private GameObject _vrContainer;
     [SerializeField] private GameObject _desktopContainer;
-    
-    // Start is called before the first frame update
+
+    [Header("Augmented Reality")]
+    [SerializeField] private ARSessionOrigin _arSessionOrigin;
+
     void Start()
     {
         CompatibilityChecker.AddListener(EnableCorrectCamera);
+    }
+
+    void Update()
+    {
+
     }
 
     private void EnableCorrectCamera(CompatibilityChecker.DeviceSupport deviceSupport)
@@ -39,6 +47,11 @@ public class CrossPlatformCamera : MonoBehaviour
         this._vrContainer.SetActive(false);
         this._arContainer.SetActive(false); 
         this._desktopContainer.SetActive(true);
+    }
+
+    private void MakeOriginAppearAt(Pose levelPlacementPose)
+    {
+        _arSessionOrigin.MakeContentAppearAt(new GameObject().transform, levelPlacementPose.position, levelPlacementPose.rotation);
     }
 
 }

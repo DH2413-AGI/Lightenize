@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2915927645790500135
+--- !u!1 &4179574480081331153
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7723732056556814669}
-  - component: {fileID: 4140004007164923010}
+  - component: {fileID: 4664305778208492834}
+  - component: {fileID: 1261725758507793055}
   m_Layer: 0
-  m_Name: Setup Manager
+  m_Name: Level Placement Data
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7723732056556814669
+--- !u!4 &4664305778208492834
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2915927645790500135}
+  m_GameObject: {fileID: 4179574480081331153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.742432, y: -4.5651445, z: 5.1839447}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4140004007164923010
+--- !u!114 &1261725758507793055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2915927645790500135}
+  m_GameObject: {fileID: 4179574480081331153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f2fee4a51594f7bbe18058f07a6298, type: 3}
+  m_Script: {fileID: 11500000, guid: 2afa58682c2324d6192fba877a40520d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arSessionPrefab: {fileID: 6800535302357286287, guid: 2592879ecfaf245668181d397040a689,
-    type: 3}
-  _compatibilityCheckerPrefab: {fileID: 6226634792145431312, guid: bf9f823b685634a56aadd78dde3ecbc9,
-    type: 3}
-  _levelPlacementDataPrefab: {fileID: 4179574480081331153, guid: 7378354008f2640238abd87f364424d2,
-    type: 3}

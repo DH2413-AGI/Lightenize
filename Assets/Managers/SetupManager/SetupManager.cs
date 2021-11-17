@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.ARFoundation;
 
 public class SetupManager : MonoBehaviour
 {
     private static bool SetupCompleted = false;
 
+    public static bool IsSetupCompleted
+    {
+        get => SetupCompleted;
+    }
+
     [SerializeField] private GameObject _arSessionPrefab;
 
     [SerializeField] private GameObject _compatibilityCheckerPrefab;
+    [SerializeField] private GameObject _levelPlacementDataPrefab;
 
     private CrossPlatformCamera _crossPlatformCamera;
 
@@ -25,7 +32,9 @@ public class SetupManager : MonoBehaviour
     {
         if (SetupCompleted) return;
         CompatibilityChecker.AddListener(ManagerDeviceSupport);
-        SetupCompleted = true;
+        CompatibilityChecker.AddListener(delegate (CompatibilityChecker.DeviceSupport supportedDevice)  {
+            SetupCompleted = true;
+        });
     }
 
     private void ManagerDeviceSupport(CompatibilityChecker.DeviceSupport deviceSupport)
@@ -45,6 +54,7 @@ public class SetupManager : MonoBehaviour
     {
         SpawnPersistantManagerOnce(_arSessionPrefab);
         SpawnPersistantManagerOnce(_compatibilityCheckerPrefab);
+        SpawnPersistantManagerOnce(_levelPlacementDataPrefab);
     }
 
     private void SpawnPersistantManagerOnce(GameObject prefab)
@@ -56,6 +66,7 @@ public class SetupManager : MonoBehaviour
     private void EnableARMode()
     {
         Debug.Log("Device mode: AR");
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         this.EnableARSessionScripts();
     }
 
