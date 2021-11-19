@@ -14,6 +14,7 @@ public class LightPicker : MonoBehaviour
 
     private ColoredLight _pickedLight;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,14 +54,13 @@ public class LightPicker : MonoBehaviour
     {
         if (ClickOrTap())
         {
-            Debug.Log("Drop Light");
             DropCurrentPickedLight();
         }
     }
 
     private bool ClickOrTap()
     {
-        if (Touchscreen.current != null) return Touchscreen.current.touches.Count > 0 && Touchscreen.current.touches.First().tap.wasPressedThisFrame;
+        if (Touchscreen.current != null) return Touchscreen.current.primaryTouch.press.wasPressedThisFrame;
         if (Mouse.current != null) return Mouse.current.leftButton.wasPressedThisFrame;
         return false;
     }
@@ -110,8 +110,9 @@ public class LightPicker : MonoBehaviour
     private void MakeLightFollowCamera()
     {
         Debug.Log(this._camera.transform.position);
-        this._pickedLight.transform.position = this._camera.transform.position;
-        this._pickedLight.transform.rotation = this._camera.transform.rotation;
+        var newTargetPosition = this._camera.transform.position + this._camera.transform.forward * 1.5f + this._camera.transform.up * -0.5f;
+        this._pickedLight.transform.position = Vector3.Lerp(this._pickedLight.transform.position, newTargetPosition, Time.deltaTime * 10.0f);
+        this._pickedLight.transform.rotation = this._camera.transform.rotation * Quaternion.Euler(0.0f, 180.0f, 0.0f);
     }
 
     private void PickLight(ColoredLight lightToSelect)

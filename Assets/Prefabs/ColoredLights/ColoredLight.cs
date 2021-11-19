@@ -20,7 +20,7 @@ public class ColoredLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.TogglePickUI(this._lightPickerHover);
+        this.TogglePickUI(this._lightPickerHover && !_lightPickerSelected);
     }
 
     public void ToggleLightPickHover(bool hover)
@@ -31,7 +31,7 @@ public class ColoredLight : MonoBehaviour
 
     public void ToggleLightPickSelect(bool hover)
     {
-        this._lightPickerHover = hover;
+        this._lightPickerSelected = hover;
 
     }
 
