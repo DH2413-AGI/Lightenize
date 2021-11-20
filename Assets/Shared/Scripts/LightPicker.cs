@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityCoreHaptics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class LightPicker : MonoBehaviour
 {
+    [SerializeField] private AudioSource _audioSource;
+
+    [SerializeField] private AudioClip _pickUpSound;
+
+    [SerializeField] private AudioClip _dropSound;
+
     private Camera _camera;
 
     private List<ColoredLight> _coloredLights;
@@ -86,7 +93,7 @@ public class LightPicker : MonoBehaviour
     {
         return coloredLights.FindAll((coloredLight) => {
             Vector3 screenPoint = _camera.WorldToViewportPoint(coloredLight.transform.position);
-            bool isFrontOfCamera = screenPoint.z > 0;
+            bool isFrontOfCamera = screenPoint.z > -0.1f;
             bool isInsideVerticalAxis = screenPoint.y > 0 & screenPoint.y < 1;
             bool isInsideHorizontalAxis = screenPoint.x > 0 & screenPoint.x < 1;
             bool isInsideViewport = isFrontOfCamera && isInsideVerticalAxis && isInsideHorizontalAxis;
@@ -110,7 +117,7 @@ public class LightPicker : MonoBehaviour
     private void MakeLightFollowCamera()
     {
         Debug.Log(this._camera.transform.position);
-        var newTargetPosition = this._camera.transform.position + this._camera.transform.forward * 1.5f + this._camera.transform.up * -0.5f;
+        var newTargetPosition = this._camera.transform.position + this._camera.transform.forward * 1.5f + this._camera.transform.up * -0.4f;
         this._pickedLight.transform.position = Vector3.Lerp(this._pickedLight.transform.position, newTargetPosition, Time.deltaTime * 10.0f);
         this._pickedLight.transform.rotation = this._camera.transform.rotation * Quaternion.Euler(0.0f, 180.0f, 0.0f);
     }
@@ -119,11 +126,22 @@ public class LightPicker : MonoBehaviour
     {
         this._pickedLight = lightToSelect;
         this._pickedLight.ToggleLightPickSelect(true);
+        this._audioSource.PlayOneShot(this._pickUpSound);
+        if (UnityCoreHapticsProxy.SupportsCoreHaptics())
+        {
+            UnityCoreHapticsProxy.PlayTransientHaptics(1.0f, 0.0f);
+        }
     }
 
     private void DropCurrentPickedLight()
     {
         this._pickedLight.ToggleLightPickSelect(false);
+        this._pickedLight.ToggleLightPickHover(false);
         this._pickedLight = null;
+        this._audioSource.PlayOneShot(this._dropSound);
+        if (UnityCoreHapticsProxy.SupportsCoreHaptics())
+        {
+            UnityCoreHapticsProxy.PlayTransientHaptics(1.0f, 1.0f);
+        }
     }
 }
