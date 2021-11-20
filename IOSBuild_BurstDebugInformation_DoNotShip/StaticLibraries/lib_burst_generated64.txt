@@ -7,7 +7,7 @@ Library: lib_burst_generated64
 --float-precision=Standard
 --format=MachO
 --disable-warnings=BC1370
---compilation-defines=UNITY_2021_2_2
+--compilation-defines=UNITY_2021_2_3
 --compilation-defines=UNITY_2021_2
 --compilation-defines=UNITY_2021
 --compilation-defines=UNITY_5_3_OR_NEWER
@@ -103,11 +103,6 @@ Library: lib_burst_generated64
 --compilation-defines=ENABLE_IL2CPP
 --compilation-defines=NET_STANDARD_2_0
 --compilation-defines=NET_STANDARD
---compilation-defines=DEVELOPMENT_BUILD
---compilation-defines=ENABLE_PROFILER
---compilation-defines=DEBUG
---compilation-defines=TRACE
---compilation-defines=UNITY_ASSERTIONS
 --compilation-defines=ENABLE_CUSTOM_RENDER_TEXTURE
 --compilation-defines=ENABLE_DIRECTOR
 --compilation-defines=ENABLE_LOCALIZATION
@@ -147,7 +142,6 @@ Library: lib_burst_generated64
 --compilation-defines=TIMELINE_FRAMEACCURATE
 --compilation-defines=UNITY_ANALYTICS
 --generate-link-xml=Temp/burst.link.xml
---debug=Full
 --generate-static-linkage-methods
 --output=/Users/adam/Repositories/Lightenize/Temp/StagingArea/StaticLibraries/lib_burst_generated64
 --root-assembly=/Users/adam/Repositories/Lightenize/Temp/StagingArea/Data/Managed/UnityEngine.UI.dll

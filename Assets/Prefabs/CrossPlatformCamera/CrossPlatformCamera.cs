@@ -12,6 +12,8 @@ public class CrossPlatformCamera : MonoBehaviour
     void Start()
     {
         CompatibilityChecker.AddListener(EnableCorrectCamera);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
