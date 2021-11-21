@@ -34,8 +34,10 @@ namespace UnityCoreHaptics
             private static extern void _coreHapticsRegisterEngineError(Action callback);
         #endif
 
+        #pragma warning disable 0067
         public static event Action OnEngineCreated;
         public static event Action OnEngineError;
+        #pragma warning restore 0067
 
         /// <summary>
         /// In the constructor, set up callbacks

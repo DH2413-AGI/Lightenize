@@ -50,3 +50,7 @@ MonoBehaviour:
     type: 3}
   _levelPlacementDataPrefab: {fileID: 4179574480081331153, guid: 7378354008f2640238abd87f364424d2,
     type: 3}
+  _levelManagerPrefab: {fileID: 2345029941175020410, guid: f87072ac10c944b2f90949b7c004eb8e,
+    type: 3}
+  _inputManager: {fileID: 7221871769388690667, guid: fff5d770ce7034e91b46e595cc65db95,
+    type: 3}
