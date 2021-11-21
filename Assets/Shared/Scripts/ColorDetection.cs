@@ -28,7 +28,7 @@ public class ColorDetection : MonoBehaviour
             Light spotlight = spotLights[i].GetComponent<Light>();
             spotlight.type = LightType.Spot;
             Color lightColor = spotlight.color;
-            float spotAngle = spotlight.innerSpotAngle;
+            float spotAngle = spotlight.innerSpotAngle / 2.0f;
             Vector3 forward = spotlight.transform.forward;
             //Debug.Log("light " + i + " color: " + lightColor);
             // Debug.Log("angle: " + angle);
