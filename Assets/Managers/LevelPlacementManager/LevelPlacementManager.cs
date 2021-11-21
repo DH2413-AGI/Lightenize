@@ -18,7 +18,11 @@ public class LevelPlacementManager : MonoBehaviour
 
     private Camera _arCamera;
 
-    private Pose _latestPlaneHit;
+    private Pose _latestPlaneHit = new Pose(Vector3.zero, Quaternion.identity);
+
+    private LevelManager _levelManager;
+
+    private InputAction _primaryClickAction;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +36,10 @@ public class LevelPlacementManager : MonoBehaviour
             this._arRaycastManager = FindObjectOfType<ARRaycastManager>();
             this._arCamera = FindObjectOfType<Camera>();
             this._levelPlacementData = FindObjectOfType<LevelPlacementData>();
+            this._levelManager = FindObjectOfType<LevelManager>();
+
+            var playerInput = FindObjectOfType<PlayerInput>();
+            _primaryClickAction = playerInput.actions.FindActionMap("Player").FindAction("PrimaryClick");
         });
     }
 
@@ -41,14 +49,18 @@ public class LevelPlacementManager : MonoBehaviour
         if (!SetupManager.IsSetupCompleted) return;
         this.LookForPlane();
         this.RenderLevelPlacementPlaceholder();
-        this.CheckForUserInput();
+
+        if (_primaryClickAction.WasPerformedThisFrame())
+        {
+            PlaceLevel();
+        }
     }
 
     private void LookForPlane()
     {
         Vector2 screenCenter = _arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         var hits = new List<ARRaycastHit>();
-        this._arRaycastManager.Raycast(screenCenter, hits, TrackableType.PlaneEstimated);
+        this._arRaycastManager.Raycast(screenCenter, hits, TrackableType.PlaneWithinPolygon);
 
         if (hits.Count == 0) return;
         Vector3 cameraForward = _arCamera.transform.forward;
@@ -64,26 +76,20 @@ public class LevelPlacementManager : MonoBehaviour
         _levelPlaceholder.transform.SetPositionAndRotation(this._latestPlaneHit.position, this._latestPlaneHit.rotation);
     }
 
-    private void CheckForUserInput()
+    private void PlaceLevel()
     {
         if (this._latestPlaneHit == null) return;
-        bool tappingScreenOnceWithOneFinger = Touchscreen.current.IsPressed(0);
-        if (tappingScreenOnceWithOneFinger)
-        {
-            ChoosePositionAndRotationOfLevels(_latestPlaneHit);
-        }
+        ChoosePositionAndRotationOfLevels(_latestPlaneHit);
     }
 
     private void ChoosePositionAndRotationOfLevels(Pose pose)
     {
         _levelPlacementData.SetLevelPose(pose);
-        Debug.Log("Level Position Set");
         MoveToNextScene();
     }
     
     private void MoveToNextScene()
     {
-        // TODO, create a level management system
-        SceneManager.LoadScene("SampleScene");
+        this._levelManager.LoadNextLevel();
     }
 }

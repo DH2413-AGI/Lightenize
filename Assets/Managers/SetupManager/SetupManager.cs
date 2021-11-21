@@ -16,7 +16,12 @@ public class SetupManager : MonoBehaviour
     [SerializeField] private GameObject _arSessionPrefab;
 
     [SerializeField] private GameObject _compatibilityCheckerPrefab;
+
     [SerializeField] private GameObject _levelPlacementDataPrefab;
+
+    [SerializeField] private GameObject _levelManagerPrefab;
+
+    [SerializeField] private GameObject _inputManager;
 
     private CrossPlatformCamera _crossPlatformCamera;
 
@@ -55,6 +60,8 @@ public class SetupManager : MonoBehaviour
         SpawnPersistantManagerOnce(_arSessionPrefab);
         SpawnPersistantManagerOnce(_compatibilityCheckerPrefab);
         SpawnPersistantManagerOnce(_levelPlacementDataPrefab);
+        SpawnPersistantManagerOnce(_levelManagerPrefab);
+        SpawnPersistantManagerOnce(_inputManager);
     }
 
     private void SpawnPersistantManagerOnce(GameObject prefab)
