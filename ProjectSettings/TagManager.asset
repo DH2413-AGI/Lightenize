@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Level
   - colored light
+  - SpotLight
+  - ColorSensor
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - ColorSensor
+  - IgnoreSpotlight
   - 
   - 
   - 

@@ -2,14 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[ExecuteInEditMode]
 public class ColoredLight : MonoBehaviour
 {
     [SerializeField] private GameObject _uiContainer;
 
-    /// <summary>If the light picker is close enough to pick this light</summary>
+    [SerializeField] private Color _color;
+
+    [SerializeField] private Light _spotLight;
+
+    [SerializeField] private Light _pointLight;
+
+    /// <summary> If the light picker is close enough to pick this light </summary>
     private bool _lightPickerHover;
 
     private bool _lightPickerSelected;
+
+    public Color Color
+    {
+        get => this._color;
+    }
+
+    public float InnerAngle
+    {
+        get => this._spotLight.innerSpotAngle;
+    }
+
+    public float OuterAngle
+    {
+        get => this._spotLight.spotAngle;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +43,16 @@ public class ColoredLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.TogglePickUI(this._lightPickerHover && !_lightPickerSelected);
+        if (Application.isPlaying) {
+            this.TogglePickUI(this._lightPickerHover && !_lightPickerSelected);
+        }
+        SetColorToLights();
+    }
+
+    private void SetColorToLights()
+    {
+        this._spotLight.color = this._color;
+        this._pointLight.color = this._color;
     }
 
     public void ToggleLightPickHover(bool hover)
