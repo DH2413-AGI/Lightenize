@@ -458,7 +458,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_Intensity: 1000
   m_Range: 15
   m_SpotAngle: 37
@@ -496,7 +496,7 @@ Light:
   m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 311
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
@@ -716,7 +716,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_Intensity: 0.5
   m_Range: 1
   m_SpotAngle: 30
@@ -911,3 +911,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiContainer: {fileID: 569629219496528737}
+  _color: {r: 1, g: 0, b: 0, a: 0}
+  _spotLight: {fileID: 6336895119345799491}
+  _pointLight: {fileID: 635905303039397695}
