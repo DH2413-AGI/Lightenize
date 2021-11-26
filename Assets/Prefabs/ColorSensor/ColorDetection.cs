@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class ColorDetection : MonoBehaviour
 {
-    [SerializeField] private Color _goalColor;
+    private enum TargetMode {
+        Once,
+        Always
+    }
 
-    [SerializeField] private GameObject _goalColorObject;
+    [Header("Individual Settings")]
+    [SerializeField] private Color _targetColor;
+    [SerializeField] private TargetMode _targetMode = TargetMode.Once;
 
+    [Header("Prefab Settings")]
+    [SerializeField] private GameObject _targetColorObject;
     [SerializeField] private TMP_Text _currentColorText;
     [SerializeField] private TMP_Text _correctColorText;
     
@@ -18,10 +25,21 @@ public class ColorDetection : MonoBehaviour
 
     private Color _currentColor = new Color();
 
+    private bool _hasMatchedTargetColor = false;
+
+    /// <summary><summary>
+    public bool IsCleared 
+    {
+        get {
+            if (this._targetMode == TargetMode.Once) return this._hasMatchedTargetColor;
+            else return this.IsCurrentColorMatchingGoalColor();
+        }
+    }
+
     void Start()
     {
         this._coloredLights = FindObjectsOfType<ColoredLight>();
-        this._goalColorMaterial = this._goalColorObject.GetComponent<Renderer>().material;
+        this._goalColorMaterial = this._targetColorObject.GetComponent<Renderer>().material;
         this.UpdateGoalColorMaterial();
     }
 
@@ -31,12 +49,14 @@ public class ColorDetection : MonoBehaviour
         this.CheckForCurrentColorOnSensor();
         this.UpdateGoalColorMaterial();
         this.UpdateUI();
+
+        if (IsCurrentColorMatchingGoalColor()) this._hasMatchedTargetColor = true;
     }
 
     private void UpdateGoalColorMaterial()
     {
-        this._goalColorMaterial.SetColor("_Color", this._goalColor);
-        this._goalColorMaterial.SetColor("_EmissionColor", this._goalColor * 3.0f);
+        this._goalColorMaterial.SetColor("_Color", this._targetColor);
+        this._goalColorMaterial.SetColor("_EmissionColor", this._targetColor * 3.0f);
     }
 
     private void CheckForCurrentColorOnSensor()
@@ -66,7 +86,7 @@ public class ColorDetection : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (this._currentColor == this._goalColor)
+        if (this.IsCleared)
         {
             _correctColorText.text = "Correct";
             _correctColorText.color = Color.green;
@@ -76,11 +96,19 @@ public class ColorDetection : MonoBehaviour
             _correctColorText.text = "Wrong";
             _correctColorText.color = Color.red;
         }
-        _currentColorText.text = $"Red: {RoundToTwoDecimalPlaces(this._currentColor.r)}, Green: {RoundToTwoDecimalPlaces(this._currentColor.g)}, Blue: {RoundToTwoDecimalPlaces(this._currentColor.b)}";
+        _currentColorText.text = 
+            $"Red: {RoundToTwoDecimalPlaces(this._currentColor.r)}, " +  
+            $"Green: {RoundToTwoDecimalPlaces(this._currentColor.g)}, " +  
+            $"Blue: {RoundToTwoDecimalPlaces(this._currentColor.b)}, ";
     }
     
     private float RoundToTwoDecimalPlaces(float valueToRound)
     {
         return Mathf.Round(valueToRound * 100.0f) / 100.0f;
+    }
+
+    public bool IsCurrentColorMatchingGoalColor()
+    {
+        return this._currentColor == this._targetColor;
     }
 }
