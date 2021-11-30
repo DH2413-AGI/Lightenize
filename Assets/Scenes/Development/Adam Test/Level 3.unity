@@ -541,6 +541,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
         type: 3}
+      propertyPath: _targetMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
+        type: 3}
       propertyPath: _goalColor.b
       value: 0
       objectReference: {fileID: 0}
@@ -553,6 +558,21 @@ PrefabInstance:
         type: 3}
       propertyPath: _goalColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
+        type: 3}
+      propertyPath: _targetColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
+        type: 3}
+      propertyPath: _targetColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
+        type: 3}
+      propertyPath: _targetColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4783480400349991084, guid: 204c94b32d6a74aedb65232396cdd7c5,
         type: 3}
@@ -774,6 +794,21 @@ PrefabInstance:
     - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
         type: 3}
       propertyPath: _goalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
+        type: 3}
+      propertyPath: _targetColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
+        type: 3}
+      propertyPath: _targetColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466711520154267952, guid: 204c94b32d6a74aedb65232396cdd7c5,
+        type: 3}
+      propertyPath: _targetColor.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4783480400349991084, guid: 204c94b32d6a74aedb65232396cdd7c5,
