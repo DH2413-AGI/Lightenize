@@ -14,6 +14,8 @@ public class ColoredLight : MonoBehaviour
 
     [SerializeField] private Light _pointLight;
 
+    [SerializeField] private GameObject _colorIndicator;
+
     /// <summary> If the light picker is close enough to pick this light </summary>
     private bool _lightPickerHover;
 
@@ -37,7 +39,9 @@ public class ColoredLight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (Application.isPlaying) {
+            SetColorToMaterials();
+        }    
     }
 
     // Update is called once per frame
@@ -49,6 +53,14 @@ public class ColoredLight : MonoBehaviour
         SetColorToLights();
     }
 
+     private void SetColorToMaterials()
+    {
+        var emission = 3.3f;
+        var material = this._colorIndicator.GetComponent<Renderer>().material;
+        material.SetColor("_Color", this._color);
+        material.SetColor("_EmissionColor", this._color * emission);
+    }
+    
     private void SetColorToLights()
     {
         this._spotLight.color = this._color;
