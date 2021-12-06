@@ -6,7 +6,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class ColoredLight : MonoBehaviour
 {
-    [SerializeField] private GameObject _uiContainer;
+    [SerializeField] private PickLightUI _pickUI;
 
     [SerializeField] private Color _color;
 
@@ -39,28 +39,30 @@ public class ColoredLight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Application.isPlaying) {
+        if (Application.isPlaying)
+        {
             SetColorToMaterials();
-        }    
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Application.isPlaying) {
-            this.TogglePickUI(this._lightPickerHover && !_lightPickerSelected);
+        if (Application.isPlaying)
+        {
+            this.TogglePickUI(this._lightPickerHover, _lightPickerSelected);
         }
         SetColorToLights();
     }
 
-     private void SetColorToMaterials()
+    private void SetColorToMaterials()
     {
         var emission = 3.3f;
         var material = this._colorIndicator.GetComponent<Renderer>().material;
         material.SetColor("_Color", this._color);
         material.SetColor("_EmissionColor", this._color * emission);
     }
-    
+
     private void SetColorToLights()
     {
         this._spotLight.color = this._color;
@@ -79,8 +81,8 @@ public class ColoredLight : MonoBehaviour
 
     }
 
-    private void TogglePickUI(bool enable)
-    {   
-        this._uiContainer.SetActive(enable);
+    private void TogglePickUI(bool enable, bool isGrabbing)
+    {
+        this._pickUI.toggleGrabbing(enable, isGrabbing);
     }
 }
