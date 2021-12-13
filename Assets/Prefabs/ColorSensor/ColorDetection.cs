@@ -90,11 +90,32 @@ public class ColorDetection : MonoBehaviour
 
             if (!this._coloredLightsPointingAtSensor.Contains(coloredLight)) this._coloredLightsPointingAtSensor.Add(coloredLight);
 
-            // Create a simpel linear interpolation for the light fallout between the inner and outer angles.
+            // Create a simple linear interpolation for the light fallout between the inner and outer angles.
             float linearInterpolationOuterToInnerAngle = Mathf.Clamp((coloredLight.OuterAngle - rayAngle * 2.0f) / (coloredLight.OuterAngle - coloredLight.InnerAngle), 0.0f, 1.0f);
-            this._currentColor += coloredLight.Color * linearInterpolationOuterToInnerAngle;
-        }
+            
+            // calculates light falloff
+            //float lightIntensity = coloredLight._spotLight.intensity;
+            float distance = Vector3.Distance(lightPosition, this.transform.position);
+            float lightRange = coloredLight.Range;
+            //float attenuation = 1.0f / (distance * distance);
+            float attenuation = 1.0f;
 
+            // keep attenuation as 1 if the light is close
+            if (distance > 5.0f)
+                attenuation = Mathf.Pow(1.0f - Mathf.Clamp(distance/lightRange, 0.0f, 1.0f), 0.9f);
+            //float attenuation = Mathf.Clamp(1.0f / (1.0f + (distance * distance)) * (1 - (distance * distance / lightRange)), 0.0f, 1.0f);
+
+            //Debug.Log("distance: "+ distance);   
+            //Debug.Log("attenuation: "+ attenuation);          
+
+            Color attenuatedColor = new Color();
+            attenuatedColor.r = Mathf.Min(coloredLight.Color.r * attenuation, 1.0f);
+            attenuatedColor.g = Mathf.Min(coloredLight.Color.g * attenuation, 1.0f);
+            attenuatedColor.b = Mathf.Min(coloredLight.Color.b * attenuation, 1.0f);
+
+            this._currentColor += attenuatedColor * linearInterpolationOuterToInnerAngle;    
+            //Debug.Log(this._currentColor);      
+        }
     }
 
     private void UpdateUI()

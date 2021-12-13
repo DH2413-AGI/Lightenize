@@ -16,6 +16,8 @@ public class ColoredLight : MonoBehaviour
 
     [SerializeField] private GameObject _colorIndicator;
 
+    [SerializeField] private GameObject _lightCone;
+
     /// <summary> If the light picker is close enough to pick this light </summary>
     private bool _lightPickerHover;
 
@@ -35,14 +37,19 @@ public class ColoredLight : MonoBehaviour
     {
         get => this._spotLight.spotAngle;
     }
+    public float Range
+    {
+        get => this._spotLight.range;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         if (Application.isPlaying)
         {
+            SetColorToShaderGraph();
             SetColorToMaterials();
-        }
+        }  
     }
 
     // Update is called once per frame
@@ -84,5 +91,11 @@ public class ColoredLight : MonoBehaviour
     private void TogglePickUI(bool enable, bool isGrabbing)
     {
         this._pickUI.toggleGrabbing(enable, isGrabbing);
+    }
+
+    private void SetColorToShaderGraph()
+    {
+        var lightConeMaterial = this._lightCone.GetComponent<Renderer>().material;
+        lightConeMaterial.SetVector("_color", this._color);
     }
 }
