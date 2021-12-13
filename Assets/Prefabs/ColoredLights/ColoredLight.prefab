@@ -670,6 +670,7 @@ MonoBehaviour:
   _pointLight: {fileID: 2518343631835133478}
   _colorIndicator: {fileID: 1459793921595660988}
   _lightCone: {fileID: 2325991532096740924}
+  _audioSource: {fileID: 2518343632412563888}
 --- !u!1 &3917174868679646129
 GameObject:
   m_ObjectHideFlags: 0

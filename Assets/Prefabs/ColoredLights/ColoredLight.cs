@@ -17,12 +17,14 @@ public class ColoredLight : MonoBehaviour
     [SerializeField] private GameObject _colorIndicator;
 
     [SerializeField] private GameObject _lightCone;
+    [SerializeField] private AudioSource _audioSource;
 
     /// <summary> If the light picker is close enough to pick this light </summary>
     private bool _lightPickerHover;
 
     private bool _lightPickerSelected;
 
+    private Vector3 _lastPosition = Vector3.zero;
     public Color Color
     {
         get => this._color;
@@ -50,6 +52,7 @@ public class ColoredLight : MonoBehaviour
             SetColorToShaderGraph();
             SetColorToMaterials();
         }  
+        this._lastPosition = this.transform.position;
     }
 
     // Update is called once per frame
@@ -60,6 +63,15 @@ public class ColoredLight : MonoBehaviour
             this.TogglePickUI(this._lightPickerHover, _lightPickerSelected);
         }
         SetColorToLights();
+        HandleSounds();
+        this._lastPosition = this.transform.position;
+    }
+
+    private void HandleSounds()
+    {
+        float amountOfMovement = Vector3.Distance(this._lastPosition, this.transform.position);
+        if (amountOfMovement < 0.001f) return;
+        this._audioSource.volume = Mathf.Clamp(amountOfMovement * 7.5f, 0.0f, 1.0f);
     }
 
     private void SetColorToMaterials()
