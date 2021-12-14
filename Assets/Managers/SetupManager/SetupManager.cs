@@ -23,6 +23,8 @@ public class SetupManager : MonoBehaviour
 
     [SerializeField] private GameObject _inputManager;
 
+    [SerializeField] private GameObject _scoreManager;
+
     private CrossPlatformCamera _crossPlatformCamera;
 
     void Awake()
@@ -37,7 +39,8 @@ public class SetupManager : MonoBehaviour
     {
         if (SetupCompleted) return;
         CompatibilityChecker.AddListener(ManagerDeviceSupport);
-        CompatibilityChecker.AddListener(delegate (CompatibilityChecker.DeviceSupport supportedDevice)  {
+        CompatibilityChecker.AddListener(delegate (CompatibilityChecker.DeviceSupport supportedDevice)
+        {
             SetupCompleted = true;
         });
     }
@@ -62,6 +65,7 @@ public class SetupManager : MonoBehaviour
         SpawnPersistantManagerOnce(_levelPlacementDataPrefab);
         SpawnPersistantManagerOnce(_levelManagerPrefab);
         SpawnPersistantManagerOnce(_inputManager);
+        SpawnPersistantManagerOnce(_scoreManager);
     }
 
     private void SpawnPersistantManagerOnce(GameObject prefab)

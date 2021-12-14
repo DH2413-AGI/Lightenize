@@ -18,13 +18,15 @@ public class LevelManager : MonoBehaviour
 
     private PlayerInput _playerInput;
 
+    private ScoreManager _scoreManager;
+
     // Start is called before the first frame update
     void Start()
     {
         this._currentLevelIndex = this.LevelIndexFromCurrentScene();
         this._playerInput = FindObjectOfType<PlayerInput>();
         this.GetLevelRelatedObjects();
-        
+
         if (this._allowToSkipLevels)
         {
             this._playerInput.actions.FindActionMap("Player").FindAction("SkipLevel").performed += SkipLevel;
@@ -34,6 +36,7 @@ public class LevelManager : MonoBehaviour
     private void GetLevelRelatedObjects()
     {
         this._levelContainerAnimator = FindObjectOfType<LevelContainer>().GetComponent<Animator>();
+        this._scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     private int LevelIndexFromCurrentScene()
@@ -60,6 +63,9 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        this._scoreManager.calculateAndAddLevelTimeScore(this._currentLevelIndex);
+        // Debug.Log(this._scoreManager.getScoreByLevel(this._currentLevelIndex));
+        // Debug.Log(this._scoreManager.getTotalScore());
         StartCoroutine(this.LoadNextLevelCorunite());
     }
 
