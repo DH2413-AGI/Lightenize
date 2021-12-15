@@ -1055,6 +1055,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParticleColorChanger
       objectReference: {fileID: 0}
+    - target: {fileID: 7196051617491341988, guid: ea868152c69764c71aa2231e407a95b5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8882508161543937907, guid: ea868152c69764c71aa2231e407a95b5,
         type: 3}
       propertyPath: m_RootOrder

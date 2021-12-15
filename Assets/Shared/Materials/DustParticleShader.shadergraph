@@ -2,10 +2,18 @@
     "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.GraphData",
     "m_ObjectId": "b140d62eeac040d5a915f8f1675f03a6",
-    "m_Properties": [],
+    "m_Properties": [
+        {
+            "m_Id": "8f135ca1c03846c79bbcc6c21f7bf2aa"
+        }
+    ],
     "m_Keywords": [],
     "m_Dropdowns": [],
-    "m_CategoryData": [],
+    "m_CategoryData": [
+        {
+            "m_Id": "a63de2e10b85473292025015c9dab135"
+        }
+    ],
     "m_Nodes": [
         {
             "m_Id": "39ccab84b2fa44108c7bc7279011908e"
@@ -25,8 +33,8 @@
     "m_Edges": [],
     "m_VertexContext": {
         "m_Position": {
-            "x": 0.0,
-            "y": 0.0
+            "x": 0.0000027418136596679689,
+            "y": 0.000027060508728027344
         },
         "m_Blocks": [
             {
@@ -255,6 +263,33 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "8f135ca1c03846c79bbcc6c21f7bf2aa",
+    "m_Guid": {
+        "m_GuidSerialized": "ef68ca16-9781-4765-805a-f5ab88ffd9c0"
+    },
+    "m_Name": "Intensity",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Intensity",
+    "m_DefaultReferenceName": "_Intensity",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "a203ff35362642c4bf0cf2e3e810d5fd",
@@ -285,6 +320,18 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "VertexDescription.Tangent"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "a63de2e10b85473292025015c9dab135",
+    "m_Name": "",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "8f135ca1c03846c79bbcc6c21f7bf2aa"
+        }
+    ]
 }
 
 {
