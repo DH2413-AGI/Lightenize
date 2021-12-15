@@ -24,9 +24,9 @@ public class ColorDetection : MonoBehaviour
 
     private ColoredLight[] _coloredLights;
 
-    private List<ColoredLight> _coloredLightsPointingAtSensor = new List<ColoredLight>();
+    private List<Color> _colorsOnSensor = new List<Color>();
 
-    private List<ColoredLight> _coloredLightsNeededForClear = new List<ColoredLight>();
+    private List<Color> _colorsNeededForClear = new List<Color>();
 
     private Color _currentColor = new Color();
 
@@ -59,7 +59,7 @@ public class ColorDetection : MonoBehaviour
         if (IsCurrentColorMatchingGoalColor())
         {
             this._hasMatchedTargetColor = true;
-            this.setClearColoredLightsCombination();
+            this.setClearColorCombination();
         }
     }
 
@@ -74,7 +74,7 @@ public class ColorDetection : MonoBehaviour
         RaycastHit hitInfo;
 
         this._currentColor = new Color();
-        this._coloredLightsPointingAtSensor = new List<ColoredLight>();
+        this._colorsOnSensor = new List<Color>();
 
         foreach (var coloredLight in this._coloredLights)
         {
@@ -88,11 +88,9 @@ public class ColorDetection : MonoBehaviour
             if (!Physics.Raycast(rayFromLightToSensor, out hitInfo)) continue;
             if (rayAngle > coloredLight.OuterAngle / 2.0f || hitInfo.transform.gameObject != this.gameObject) continue;
 
-            if (!this._coloredLightsPointingAtSensor.Contains(coloredLight)) this._coloredLightsPointingAtSensor.Add(coloredLight);
-
             // Create a simple linear interpolation for the light fallout between the inner and outer angles.
             float linearInterpolationOuterToInnerAngle = Mathf.Clamp((coloredLight.OuterAngle - rayAngle * 2.0f) / (coloredLight.OuterAngle - coloredLight.InnerAngle), 0.0f, 1.0f);
-            
+
             // calculates light falloff
             //float lightIntensity = coloredLight._spotLight.intensity;
             float distance = Vector3.Distance(lightPosition, this.transform.position);
@@ -102,19 +100,20 @@ public class ColorDetection : MonoBehaviour
 
             // keep attenuation as 1 if the light is close
             if (distance > 5.0f)
-                attenuation = Mathf.Pow(1.0f - Mathf.Clamp(distance/lightRange, 0.0f, 1.0f), 0.9f);
+                attenuation = Mathf.Pow(1.0f - Mathf.Clamp(distance / lightRange, 0.0f, 1.0f), 0.9f);
             //float attenuation = Mathf.Clamp(1.0f / (1.0f + (distance * distance)) * (1 - (distance * distance / lightRange)), 0.0f, 1.0f);
-
-            //Debug.Log("distance: "+ distance);   
-            //Debug.Log("attenuation: "+ attenuation);          
 
             Color attenuatedColor = new Color();
             attenuatedColor.r = Mathf.Min(coloredLight.Color.r * attenuation, 1.0f);
             attenuatedColor.g = Mathf.Min(coloredLight.Color.g * attenuation, 1.0f);
             attenuatedColor.b = Mathf.Min(coloredLight.Color.b * attenuation, 1.0f);
 
-            this._currentColor += attenuatedColor * linearInterpolationOuterToInnerAngle;    
-            //Debug.Log(this._currentColor);      
+            this._currentColor += attenuatedColor * linearInterpolationOuterToInnerAngle;
+
+            // Only use the interpolation to calculate what color is shone onto the sensor from the colored light
+            Color colorFromColoredLight = coloredLight.Color * linearInterpolationOuterToInnerAngle;
+
+            if (!this._colorsOnSensor.Contains(colorFromColoredLight)) this._colorsOnSensor.Add(colorFromColoredLight);
         }
     }
 
@@ -143,28 +142,28 @@ public class ColorDetection : MonoBehaviour
         return this._currentColor == this._targetColor;
     }
 
-    private void setClearColoredLightsCombination()
+    private void setClearColorCombination()
     {
 
-        if (this._coloredLightsNeededForClear.Count == 0)
+        if (this._colorsNeededForClear.Count == 0)
         {
-            foreach (ColoredLight cl in this._coloredLightsPointingAtSensor)
+            foreach (Color color in this._colorsOnSensor)
             {
-                this._coloredLightsNeededForClear.Add(cl);
+                this._colorsNeededForClear.Add(color);
             }
         }
     }
 
-    private string lightCombinationText(List<ColoredLight> lights, Color outcome)
+    private string lightCombinationText(List<Color> colors, Color outcome)
     {
         if (ColorNames.FindColor(outcome) == "black") return "";
 
-        if (lights.Count > 1)
+        if (colors.Count > 1)
         {
             string colorCombination = "";
-            foreach (ColoredLight cl in lights)
+            foreach (Color color in colors)
             {
-                colorCombination += $" {ColorNames.FindColor(cl.Color)} +";
+                colorCombination += $" {ColorNames.FindColor(color)} +";
             }
             colorCombination = colorCombination.Remove(colorCombination.Length - 1);
             return colorCombination += $"\n= {ColorNames.FindColor(outcome)}";
@@ -179,8 +178,8 @@ public class ColorDetection : MonoBehaviour
     {
         if (this.IsCleared)
         {
-            return lightCombinationText(this._coloredLightsNeededForClear, this._targetColor);
+            return lightCombinationText(this._colorsNeededForClear, this._targetColor);
         }
-        return lightCombinationText(this._coloredLightsPointingAtSensor, this._currentColor);
+        return lightCombinationText(this._colorsOnSensor, this._currentColor);
     }
 }
