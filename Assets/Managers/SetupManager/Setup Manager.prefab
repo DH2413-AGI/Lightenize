@@ -54,3 +54,5 @@ MonoBehaviour:
     type: 3}
   _inputManager: {fileID: 7221871769388690667, guid: fff5d770ce7034e91b46e595cc65db95,
     type: 3}
+  _scoreManager: {fileID: 2345029941175020410, guid: 1162084566290ce41aeb5528c75329fd,
+    type: 3}
